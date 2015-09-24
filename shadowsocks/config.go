@@ -50,12 +50,6 @@ func (config *Config) GetServerArray() []string {
 	}
 	arr, ok := config.Server.([]interface{})
 	if ok {
-		/*
-			if len(arr) > 1 {
-				log.Println("Multiple servers in \"server\" option is deprecated. " +
-					"Please use \"server_password\" instead.")
-			}
-		*/
 		serverArr := make([]string, len(arr), len(arr))
 		for i, s := range arr {
 			serverArr[i], ok = s.(string)

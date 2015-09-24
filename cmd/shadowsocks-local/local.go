@@ -5,7 +5,6 @@ import (
 	"errors"
 	"flag"
 	"fmt"
-	ss "github.com/zxjcarrot/shadowsocks-go/shadowsocks"
 	"io"
 	"log"
 	"math/rand"
@@ -14,7 +13,10 @@ import (
 	"path"
 	"runtime"
 	"strconv"
+	"strings"
 	"time"
+
+	ss "github.com/cxjava/shadowsocks-go/shadowsocks"
 )
 
 var debug ss.DebugLog
@@ -238,6 +240,28 @@ func parseServerConfig(config *ss.Config) {
 }
 
 func connectToServer(serverId int, rawaddr []byte, addr string) (remote *ss.Conn, err error) {
+	if len(servers.srvCipher) >= 2 {
+		if strings.Contains(addr, "img.") ||
+			strings.Contains(addr, ".img") ||
+			strings.Contains(addr, "image") ||
+			strings.HasPrefix(addr, "img") ||
+			strings.HasPrefix(addr, "pic") ||
+			strings.Contains(addr, "cdn.") ||
+			strings.Contains(addr, "media") ||
+			strings.Contains(addr, "pic") ||
+			strings.Contains(addr, ".cdn") ||
+			strings.Contains(addr, "static.") ||
+			strings.Contains(addr, ".static") ||
+			strings.Contains(addr, "asset") ||
+			strings.Contains(addr, "video") ||
+			strings.Contains(addr, "flash") ||
+			strings.Contains(addr, "js.") ||
+			strings.Contains(addr, "cache") ||
+			strings.Contains(addr, "static") ||
+			strings.Contains(addr, "img") {
+			serverId = 1 + rand.Intn(len(servers.srvCipher)-1)
+		}
+	}
 	se := servers.srvCipher[serverId]
 
 	if (config.TcpFastOpen & 1) != 0 { // dial with tfo

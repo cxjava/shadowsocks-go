@@ -1,2 +1,10 @@
 *.deb
+*.iml
+*.exe
+*.exe~
+
+# Folders
+_obj
+_test
+.idea
 script/http

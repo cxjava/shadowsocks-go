@@ -1,9 +1,10 @@
 package shadowsocks
 
 import (
-	"golang.org/x/sys/unix"
 	"net"
 	"os"
+
+	"golang.org/x/sys/unix"
 )
 
 // implements tfoDialDeleg

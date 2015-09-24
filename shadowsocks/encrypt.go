@@ -10,11 +10,12 @@ import (
 	"crypto/rc4"
 	"encoding/binary"
 	"errors"
+	"io"
+
 	"github.com/codahale/chacha20"
 	"golang.org/x/crypto/blowfish"
 	"golang.org/x/crypto/cast5"
 	"golang.org/x/crypto/salsa20/salsa"
-	"io"
 )
 
 var errEmptyPassword = errors.New("empty key")
